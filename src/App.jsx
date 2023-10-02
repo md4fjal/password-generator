@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { useCallback } from "react";
 import { useRef } from "react";
+import {BiSolidCopy} from 'react-icons/bi'
 
 function App() {
   const [length, setLength] = useState(8);
@@ -43,7 +44,7 @@ function App() {
         <h1>Password Generator</h1>
         <div className="pass">
           <input type="text" placeholder="Password" value={password} readOnly ref={passRef} />
-          <button onClick={copyPassToClip}>Copy</button>
+          <button onClick={copyPassToClip}><BiSolidCopy /></button>
         </div>
         <div className="range">
           <div>
