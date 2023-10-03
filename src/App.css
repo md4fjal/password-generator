@@ -62,7 +62,7 @@ button {
   margin: 1rem 1rem;
 }
 
-@media screen and (max-width: 300px ) {
+@media screen and (max-width: 414px ) {
   body {
     background: none;
   }
