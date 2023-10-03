@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import "./App.css";
-import { useCallback } from "react";
-import { useRef } from "react";
-import {BiSolidCopy} from 'react-icons/bi'
+import { BiSolidCopy } from "react-icons/bi";
 
 function App() {
   const [length, setLength] = useState(8);
@@ -10,41 +8,48 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
 
-  const passRef = useRef(null)
+  const passRef = useRef(null);
 
   const passGen = useCallback(() => {
-    let pass=""
-    let str="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    let pass = "";
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    if(numberAllowed) str += "0123456789"
-    if(charAllowed) str += "!@#$%^&*"
+    if (numberAllowed) str += "0123456789";
+    if (charAllowed) str += "!@#$%^&*";
 
-    for(let i=1; i<=length; i++) {
-      let char = Math.floor(Math.random() * str.length + 1)
-      pass += str.charAt(char)
+    for (let i = 1; i <= length; i++) {
+      let char = Math.floor(Math.random() * str.length + 1);
+      pass += str.charAt(char);
     }
 
-    setPassword(pass)
-
-  }, [length, numberAllowed, charAllowed])
+    setPassword(pass);
+  }, [length, numberAllowed, charAllowed]);
 
   const copyPassToClip = useCallback(() => {
-    passRef.current?.select()
+    passRef.current?.select();
     // passRef.current?.setSelectionRange(0,3) for select in range
-    window.navigator.clipboard.writeText(password)
-  }, [password])
+    window.navigator.clipboard.writeText(password);
+  }, [password]);
 
   useEffect(() => {
-    passGen()
-  }, [length, numberAllowed, charAllowed, passGen])
+    passGen();
+  }, [length, numberAllowed, charAllowed, passGen]);
 
   return (
     <div className="mainContainer">
       <div className="content">
         <h1>Password Generator</h1>
         <div className="pass">
-          <input type="text" placeholder="Password" value={password} readOnly ref={passRef} />
-          <button onClick={copyPassToClip}><BiSolidCopy /></button>
+          <input
+            type="text"
+            placeholder="Password"
+            value={password}
+            readOnly
+            ref={passRef}
+          />
+          <button onClick={copyPassToClip}>
+            <BiSolidCopy />
+          </button>
         </div>
         <div className="range">
           <div>
@@ -59,11 +64,19 @@ function App() {
           </div>
 
           <div>
-            <input type="checkbox" defaultChecked={numberAllowed} onChange={() => setNumberAllowed((prev) => !prev)} />
+            <input
+              type="checkbox"
+              defaultChecked={numberAllowed}
+              onChange={() => setNumberAllowed((prev) => !prev)}
+            />
             <label>Numbers</label>
           </div>
           <div>
-            <input type="checkbox" defaultChecked={charAllowed} onChange={() => setCharAllowed((prev) => !prev)} />
+            <input
+              type="checkbox"
+              defaultChecked={charAllowed}
+              onChange={() => setCharAllowed((prev) => !prev)}
+            />
             <label>Charecters</label>
           </div>
         </div>
